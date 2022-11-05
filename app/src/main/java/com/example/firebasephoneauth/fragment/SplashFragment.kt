@@ -1,6 +1,7 @@
 package com.example.firebasephoneauth.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,10 +29,20 @@ class SplashFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        if (auth.currentUser != null) {
-            findNavController().navigate(R.id.action_splashFragment_to_thirdFragment)
-        } else {
-            findNavController().navigate(R.id.action_splashFragment_to_firstFragment)
-        }
+
+
+        object : CountDownTimer(2000, 1000) {
+            override fun onTick(p0: Long) {}
+
+            override fun onFinish() {
+                if (auth.currentUser != null) {
+                    findNavController().navigate(R.id.action_splashFragment_to_thirdFragment)
+                } else {
+                    findNavController().navigate(R.id.action_splashFragment_to_firstFragment)
+                }
+            }
+        }.start()
+
+
     }
 }
